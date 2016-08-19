@@ -1,3 +1,11 @@
+# Caching
+
+This branch implements very basic caching for the `readr` package.
+
+Currently implemented: 
+
+* `read_csv_cache`
+
 # readr
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/readr)](http://cran.r-project.org/package=readr)

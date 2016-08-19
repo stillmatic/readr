@@ -116,6 +116,32 @@ read_csv <- function(file, col_names = TRUE, col_types = NULL,
 
 #' @rdname read_delim
 #' @export
+read_csv_cache <- function(file, col_names = TRUE, col_types = NULL,
+                           locale = default_locale(), na = c("", "NA"),
+                           quoted_na = TRUE, comment = "", trim_ws = TRUE, skip = 0,
+                           n_max = Inf, guess_max = min(1000, n_max),
+                           progress = interactive(), use_cache = T) {
+  # TODO: move this to read_delim
+  if(is.connection(file)) {
+    key <- hash_query(file)
+  } else {
+    key <- hash_query(source_name(file))
+  }
+
+  if(use_cache & exists_in_cache(key)) {
+    return(read_from_cache(key))
+  }
+
+  tokenizer <- tokenizer_csv(na = na, quoted_na = TRUE, comment = comment, trim_ws = trim_ws)
+  data <- read_delimited(file, tokenizer, col_names = col_names, col_types = col_types,
+                 locale = locale, skip = skip, comment = comment, n_max = n_max, guess_max =
+                   guess_max, progress = progress)
+  if(use_cache) save_to_cache(data, key)
+  data
+}
+
+#' @rdname read_delim
+#' @export
 read_csv2 <- function(file, col_names = TRUE, col_types = NULL,
                       locale = default_locale(),
                       na = c("", "NA"), quoted_na = TRUE, comment = "",

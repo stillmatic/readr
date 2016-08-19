@@ -3,6 +3,7 @@
 \name{read_delim}
 \alias{read_csv}
 \alias{read_csv2}
+\alias{read_csv_cache}
 \alias{read_delim}
 \alias{read_tsv}
 \title{Read a delimited file into a data frame.}
@@ -17,6 +18,11 @@ read_csv(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
   comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
   guess_max = min(1000, n_max), progress = interactive())
+
+read_csv_cache(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
+  comment = "", trim_ws = TRUE, skip = 0, n_max = Inf,
+  guess_max = min(1000, n_max), progress = interactive(), use_cache = T)
 
 read_csv2(file, col_names = TRUE, col_types = NULL,
   locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
